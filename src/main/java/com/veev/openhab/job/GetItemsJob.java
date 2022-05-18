@@ -24,8 +24,8 @@ public class GetItemsJob {
     public void getAndLog() {
         if (isEnabled.get()) {
             List<Item> items = itemService.getItems();
-            nameFilter.filterByName(items, "Light_")
-                    .forEach(item -> log.info("Light item: {}", item));
+            List<Item> lightItems = nameFilter.filterByName(items, "Light_");
+            log.info("Light Items: {}", lightItems);
         }
     }
 
