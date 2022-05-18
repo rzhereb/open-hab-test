@@ -1,0 +1,34 @@
+<configuration>
+    <!-- Closes gracefully and finishes the log drain -->
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <appender name="LogzioLogbackAppender" class="io.logz.logback.LogzioLogbackAppender">
+        <!-- Replace these parameters with your configuration -->
+        <token>LvmNPKyaeIptlpDTBDtILJHJEjWHOylB</token>
+        <logzioUrl>https://listener.logz.io:8071</logzioUrl>
+        <logzioType>myType</logzioType>
+
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <root level="debug">
+        <appender-ref ref="STDOUT" />
+    </root>
+    <root level="info">
+        <appender-ref ref="LogzioLogbackAppender"/>
+    </root>
+    <logger name="org.springframework" level="WARN">
+        <appender-ref ref="LogzioLogbackAppender"/>
+    </logger>
+</configuration>
